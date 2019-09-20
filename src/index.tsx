@@ -10,7 +10,7 @@ import App from '@shared/App';
 registerServiceWorker();
 configure({ enforceActions: 'observed' });
 
-const render = (Component: React.ComponentType) => {
+const render = (Component: React.ComponentType): void => {
   ReactDOM.render(<Component />, document.getElementById('app'));
 };
 

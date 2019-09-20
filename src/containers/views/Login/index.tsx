@@ -42,7 +42,12 @@ function Login({ form }: IProps) {
         <FormItem hasFeedback>
           {getFieldDecorator('account', {
             rules: [{ required: true }]
-          })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="account" />)}
+          })(
+            <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="account"
+            />
+          )}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('password', {

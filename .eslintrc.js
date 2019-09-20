@@ -1,45 +1,93 @@
 module.exports = {
-    // Specifies the ESLint parser
-    parser: '@typescript-eslint/parser',
-    extends: [
-        // Uses the recommended rules from @eslint-plugin-react
-        'plugin:react/recommended',
-        // Uses the recommended rules from @typescript-eslint/eslint-plugin
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-        'prettier/@typescript-eslint'
+  root: true,
+  // Specifies the ESLint parser
+  parser: '@typescript-eslint/parser',
+  extends: [
+    // Uses the recommended rules from @eslint-plugin-react
+    'plugin:react/recommended',
+    // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier/@typescript-eslint'
+  ],
+  plugins: ['@typescript-eslint'],
+  parserOptions: {
+    // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2019,
+    // Allows for the use of imports
+    sourceType: 'module',
+    ecmaFeatures: {
+      // Allows for the parsing of JSX
+      jsx: true
+    },
+    project: './tsconfig.json'
+  },
+  rules: {
+    // our plugin
+    'prettier/prettier': 1,
+    '@typescript-eslint/adjacent-overload-signatures': 1,
+    '@typescript-eslint/camelcase': 'error',
+    '@typescript-eslint/class-name-casing': 'error',
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    '@typescript-eslint/consistent-type-assertions': [
+      'error',
+      {
+        assertionStyle: 'as',
+        objectLiteralTypeAssertions: 'never'
+      }
     ],
-    parserOptions: {
-        // Allows for the parsing of modern ECMAScript features
-        ecmaVersion: 2018,
-        // Allows for the use of imports
-        sourceType: 'module',
-        ecmaFeatures: {
-            // Allows for the parsing of JSX
-            jsx: true
-        }
-    },
-    rules: {
-        // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-        // e.g. '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        'prefer-const': 'error',
-        'no-var': 'error',
-        'no-multiple-empty-lines': 'error',
-        '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
-        '@typescript-eslint/explicit-member-accessibility': 'off',
-        '@typescript-eslint/interface-name-prefix': 'off',
-        '@typescript-eslint/no-empty-interface': 'off'
-    },
-    settings: {
-        react: {
-            // Tells eslint-plugin-react to automatically detect the version of React to use
-            version: 'detect'
-        }
-    },
-    env: {
-        browser: true
+    '@typescript-eslint/explicit-function-return-type': [
+      'off',
+      { allowTypedFunctionExpressions: true }
+    ],
+    '@typescript-eslint/explicit-member-accessibility': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/interface-name-prefix': 0,
+    '@typescript-eslint/indent': ['error', 2, { VariableDeclarator: 4, SwitchCase: 1 }],
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-inferrable-types': 2,
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      { functions: false, classes: true, variables: true, typedefs: true }
+    ],
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-for-in-array': 'error',
+    '@typescript-eslint/triple-slash-reference': [
+      'error',
+      {
+        path: 'always',
+        types: 'never',
+        lib: 'never'
+      }
+    ],
+    '@typescript-eslint/unbound-method': 'off',
+    // eslint base
+    'no-console': [
+      'warn',
+      {
+        allow: ['warn', 'error']
+      }
+    ],
+    eqeqeq: ['warn', 'always'],
+    'react/jsx-filename-extension': [
+      0,
+      {
+        extensions: ['.jsx', '.tsx', '.ts']
+      }
+    ]
+  },
+  settings: {
+    react: {
+      // Tells eslint-plugin-react to automatically detect the version of React to use
+      version: 'detect'
     }
-}
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+    mocha: true
+  }
+};

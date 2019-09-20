@@ -1,7 +1,7 @@
-import React from 'react'
-import { message, notification } from 'antd'
+import React from 'react';
+import { message, notification } from 'antd';
 
-import * as api from '@services/api'
+import * as api from '@services/api';
 
 /**
  * extends component
@@ -13,9 +13,9 @@ import * as api from '@services/api'
  * @template S
  */
 export class ComponentExt<P = {}, S = {}> extends React.Component<P, S> {
-    readonly api = api
-    readonly $message = message
-    readonly $notification = notification
+  public readonly api = api;
+  public readonly $message = message;
+  public readonly $notification = notification;
 }
 
 /**
@@ -25,7 +25,7 @@ export class ComponentExt<P = {}, S = {}> extends React.Component<P, S> {
  * @class StoreExt
  */
 export class StoreExt {
-    readonly api = api
-    readonly $message = message
-    readonly $notification = notification
+  public readonly api = api;
+  public readonly $message = message;
+  public readonly $notification = notification;
 }

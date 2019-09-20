@@ -26,10 +26,12 @@ export default function IntlWrapper({ children }: IProps) {
       targetLocale = LOCALES_KEYS.EN_US;
     }
     getLocaleLoader(targetLocale).then(res => {
-      intl.init({ currentLocale: targetLocale, locales: { [targetLocale]: res.localeData } }).then(() => {
-        setCurrentLocale(targetLocale);
-        setAntdLocaleData(res.antdLocaleData);
-      });
+      intl
+        .init({ currentLocale: targetLocale, locales: { [targetLocale]: res.localeData } })
+        .then(() => {
+          setCurrentLocale(targetLocale);
+          setAntdLocaleData(res.antdLocaleData);
+        });
     });
   }
 

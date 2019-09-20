@@ -41,7 +41,12 @@ function Connect() {
             no polling
           </Checkbox>
         )}
-        <Button className={styles.btn} type="primary" onClick={handleConnect} disabled={socketStore.socketIsConnected}>
+        <Button
+          className={styles.btn}
+          type="primary"
+          onClick={handleConnect}
+          disabled={socketStore.socketIsConnected}
+        >
           connect
         </Button>
         <Button

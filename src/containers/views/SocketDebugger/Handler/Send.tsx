@@ -32,11 +32,10 @@ function Send() {
     return socketStore.socketIsConnected;
   }, [socketStore.isSocketIO, socketIOEvent, socketStore.socketIsConnected]);
 
-  const sendingContent = React.useMemo(() => (socketStore.dataFormat === DATA_FORMATS[0] ? jsonContent : textContent), [
-    socketStore.dataFormat,
-    jsonContent,
-    textContent
-  ]);
+  const sendingContent = React.useMemo(
+    () => (socketStore.dataFormat === DATA_FORMATS[0] ? jsonContent : textContent),
+    [socketStore.dataFormat, jsonContent, textContent]
+  );
 
   function toggleModalVisible() {
     setModalVisible(visible => !visible);
@@ -85,7 +84,11 @@ function Send() {
       {socketStore.dataFormat === DATA_FORMATS[0] ? (
         <div className={styles.content}>
           <div className={styles.reset}>
-            <Popconfirm placement="topLeft" title="Confirm to reset?" onConfirm={() => setJsonContent({})}>
+            <Popconfirm
+              placement="topLeft"
+              title="Confirm to reset?"
+              onConfirm={() => setJsonContent({})}
+            >
               <Button>Reset</Button>
             </Popconfirm>
             <Button className={styles.btnCover} type="primary" onClick={toggleModalVisible}>

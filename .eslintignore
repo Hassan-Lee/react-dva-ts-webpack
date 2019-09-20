@@ -1,1 +1,3 @@
 /src/**/*.less.d.ts
+package.json
+/build/*
