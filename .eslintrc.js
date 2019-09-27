@@ -1,5 +1,5 @@
 module.exports = {
-  root: true,
+  // root: true,
   // Specifies the ESLint parser
   parser: '@typescript-eslint/parser',
   extends: [
@@ -19,8 +19,7 @@ module.exports = {
     ecmaFeatures: {
       // Allows for the parsing of JSX
       jsx: true
-    },
-    project: './tsconfig.json'
+    }
   },
   rules: {
     // our plugin
@@ -43,16 +42,16 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/interface-name-prefix': 0,
-    '@typescript-eslint/indent': ['error', 2, { VariableDeclarator: 4, SwitchCase: 1 }],
+    '@typescript-eslint/indent': [
+      'error',
+      2,
+      { VariableDeclarator: 4, SwitchCase: 1 }
+    ],
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-inferrable-types': 2,
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/no-use-before-define': [
-      'error',
-      { functions: false, classes: true, variables: true, typedefs: true }
-    ],
-    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-var-requires': 'error',
     '@typescript-eslint/no-for-in-array': 'error',
     '@typescript-eslint/triple-slash-reference': [
       'error',
@@ -70,7 +69,10 @@ module.exports = {
         allow: ['warn', 'error']
       }
     ],
+    'no-debugger': 'error',
+    'no-duplicate-case': 'error',
     eqeqeq: ['warn', 'always'],
+    'react/display-name': 0,
     'react/jsx-filename-extension': [
       0,
       {

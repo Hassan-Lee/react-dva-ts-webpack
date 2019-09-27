@@ -13,7 +13,7 @@ require('./cleanup-folder');
 
 const conf = {
 	mode: process.env.NODE_ENV,
-	entry: { app: ['./src/index.tsx'] },
+	entry: { app: ['./src/index.ts'] },
 	output: {
 		path: config.assetsRoot,
 		filename: constants.APP_ENV === 'dev' ? '[name].js' : assetsPath('js/[name].[chunkhash].js'),
@@ -29,8 +29,7 @@ const conf = {
 				configFile: resolve('tsconfig.webpack.json'),
 				extensions: constants.FILE_EXTENSIONS
 			})
-		],
-		alias: { mobx: resolve('node_modules/mobx/lib/mobx.es6.js') }
+		]
 	},
 	module: {
 		rules: [...styleRules, ...jsRules, ...fileRules]

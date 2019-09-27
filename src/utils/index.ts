@@ -94,7 +94,12 @@ export function queryArray<T>(array: any[], key: string, keyAlias = 'key'): T {
  * @param {string} [children='children']
  * @returns {T[]}
  */
-export function arrayToTree<T>(array: any[], id = 'id', pid = 'pid', children = 'children'): T[] {
+export function arrayToTree<T>(
+  array: any[],
+  id = 'id',
+  pid = 'pid',
+  children = 'children'
+): T[] {
   const data = cloneDeep(array);
   const result = [];
   const hash = {};

@@ -1,9 +1,8 @@
 export default {
-  namespace: 'global',
+  namespace: 'home',
 
   state: {
-    userInfo: '',
-    global: 'test'
+    userInfo: ''
   },
   effects: {
     *getMenu({ payload }, { call, put }) {
