@@ -3,7 +3,6 @@ import * as React from 'react';
 interface IAppProps {}
 
 interface IAppState {}
-
 export default class App extends React.Component<IAppProps, IAppState> {
   private constructor(props: IAppProps) {
     super(props);

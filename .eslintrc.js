@@ -69,8 +69,15 @@ module.exports = {
         allow: ['warn', 'error']
       }
     ],
+    'no-const-assign': 'error',
     'no-debugger': 'error',
+    'no-dupe-keys': 'error',
+    'no-dupe-args': 'error',
     'no-duplicate-case': 'error',
+    'no-duplicate-case': 'error',
+    'no-extra-bind': 'error',
+    'no-extra-boolean-cast': 'error',
+    'no-new-object': 'error',
     eqeqeq: ['warn', 'always'],
     'react/display-name': 0,
     'react/jsx-filename-extension': [
