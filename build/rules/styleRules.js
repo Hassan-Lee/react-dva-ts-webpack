@@ -9,7 +9,8 @@ const { cacheLoader } = require('./loaders');
 const cssLoader = modules => ({
     loader: 'css-loader',
     options: {
-        modules: true
+        importLoaders: 1,
+    modules: true,
     }
 });
 
@@ -18,7 +19,8 @@ const lessLoader = {
   options: {
     javascriptEnabled: true,
     modifyVars: theme,
-    modules: true
+    importLoaders: 1,
+    modules: true,
   }
 };
 
@@ -29,7 +31,6 @@ const baseLoaders = modules => [
   'postcss-loader'
 ];
 
-console.log('loader',[...baseLoaders(false), lessLoader])
 module.exports = [
   {
     test: /\.css$/,

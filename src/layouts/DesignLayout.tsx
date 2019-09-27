@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'dva/router';
+// import { Route, Switch } from 'dva/router';
 interface IAppProps {}
 
 interface IAppState {}
