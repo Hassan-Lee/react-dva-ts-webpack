@@ -7,11 +7,11 @@ class AuthorizedRoute extends React.Component {
     const {
       component: Component,
       render,
-      authority,
+      authority = ['admin'],
       redirectPath,
+      childRoutes,
       ...rest
     } = this.props;
-    console.log(this.props.path);
     return (
       <Authorized
         authority={authority}
@@ -25,7 +25,11 @@ class AuthorizedRoute extends React.Component {
         <Route
           {...rest}
           render={props =>
-            Component ? <Component {...props} /> : render(props)
+            Component ? (
+              <Component {...props} childRoutes={childRoutes} lalla />
+            ) : (
+              render(props)
+            )
           }
         />
       </Authorized>

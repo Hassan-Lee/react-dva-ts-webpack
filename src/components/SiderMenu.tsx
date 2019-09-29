@@ -1,27 +1,182 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
+import pathToRegexp from 'path-to-regexp';
 import styles from './SiderMenu.less';
 
-console.log(styles.logo);
 const { Sider } = Layout;
-// const { SubMenu } = Menu;
+const { SubMenu } = Menu;
+
+export function urlToList(url) {
+  const urllist = url.split('/').filter(i => i);
+  return urllist.map(
+    (urlItem, index) => `/${urllist.slice(0, index + 1).join('/')}`
+  );
+}
+
+const getIcon = icon => {
+  if (typeof icon === 'string' && icon.indexOf('http') === 0) {
+    return <img src={icon} alt="icon" className={`sider-menu-item-img`} />;
+  }
+  if (typeof icon === 'string') {
+    return <Icon type={icon} antd />;
+  }
+  return icon;
+};
 
 export interface ISilderMenuProps {}
 
 export default class SilderMenu extends PureComponent<ISilderMenuProps> {
-  private constructor() {
-    super();
+  private constructor(props) {
+    super(props);
+    this.flatMenuKeys = this.getFlatMenuKeys(props.menu);
     this.state = {
-      collapsed: false
+      openKeys: this.getDefaultCollapsedSubMenus(props)
     };
   }
 
-  private getNavMenuItems() {
-    return;
-  }
+  getMenuMatches = (flatMenuKeys, path) =>
+    this.flatMenuKeys.filter(item => {
+      if (item) {
+        return pathToRegexp(item).test(path);
+      }
+      return false;
+    });
+
+  /**
+   * 获得菜单子节点
+   * @memberof SiderMenu
+   */
+  getDefaultCollapsedSubMenus = props => {
+    const {
+      location: { pathname },
+      flatMenuKeys
+    } = props;
+    return urlToList(pathname)
+      .map(item => this.getMenuMatches(flatMenuKeys, item)[0])
+      .filter(item => item);
+  };
+
+  /**
+   * Recursively flatten the data
+   * [{path:string},{path:string}] => {path,path2}
+   * @param  menu
+   */
+  getFlatMenuKeys = menu =>
+    menu.reduce((keys, item) => {
+      keys.push(item.path);
+      if (item.children) {
+        return keys.concat(this.getFlatMenuKeys(item.children));
+      }
+      return keys;
+    }, []);
+
+  /**
+   * Find all matched menu keys based on paths
+   * @param  flatMenuKeys: [/abc, /abc/:id, /abc/:id/info]
+   * @param  paths: [/abc, /abc/11, /abc/11/info]
+   */
+  getMenuMatchKeys = (flatMenuKeys, paths) =>
+    paths.reduce(
+      (matchKeys, path) =>
+        matchKeys.concat(
+          this.flatMenuKeys.filter(item => pathToRegexp(item).test(path))
+        ),
+      []
+    );
+
+  /**
+   * 判断是否是http链接.返回 Link 或 a
+   * Judge whether it is http link.return a or Link
+   * @memberof SiderMenu
+   */
+  private getMenuItemPath = item => {
+    const itemPath = this.conversionPath(item.path);
+    const icon = getIcon(item.icon);
+    const { isMobile, onCollapse } = this.props;
+    const { target, name } = item;
+    // Is it a http link
+    if (/^https?:\/\//.test(itemPath)) {
+      return (
+        <a href={itemPath} target={target}>
+          {icon}
+          <span>{name}</span>
+        </a>
+      );
+    }
+    return (
+      <Link
+        to={itemPath}
+        target={target}
+        // replace={itemPath === this.props.location.pathname}
+        onClick={isMobile ? onCollapse : () => {}}
+      >
+        {icon}
+        <span>{name}</span>
+      </Link>
+    );
+  };
+
+  /**
+   * get SubMenu or Item
+   */
+  private getSubMenuOrItem = item => {
+    if (item.children && item.children.some(child => child.name)) {
+      const childrenItems = this.getNavMenuItems(item.children);
+      if (childrenItems && childrenItems.length > 0) {
+        return (
+          <SubMenu
+            title={
+              item.icon ? (
+                <span>
+                  {getIcon(item.icon)}
+                  <span>{item.name}</span>
+                </span>
+              ) : (
+                item.name
+              )
+            }
+            key={item.path}
+          >
+            {childrenItems}
+          </SubMenu>
+        );
+      }
+      return null;
+    } else {
+      return (
+        <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>
+      );
+    }
+  };
+
+  /**
+   * 获得菜单子节点
+   */
+  private getNavMenuItems = menusData => {
+    if (!menusData) {
+      return [];
+    }
+    return menusData
+      .filter(item => item.name && !item.hideInMenu)
+      .map(item => {
+        const ItemDom = this.getSubMenuOrItem(item);
+        return ItemDom;
+      })
+      .filter(item => item);
+  };
+
+  // 转化路径
+  private conversionPath = path => {
+    if (path && path.indexOf('http') === 0) {
+      return path;
+    } else {
+      return `/${path || ''}`.replace(/\/+/g, '/').replace(/\/:\w+\??/, '');
+    }
+  };
 
   public render() {
+    const { menu } = this.props;
     let collapsed;
     return (
       <Sider
@@ -36,63 +191,16 @@ export default class SilderMenu extends PureComponent<ISilderMenuProps> {
         <Fragment>
           <div className={styles.logo} key="logo">
             <Link to={'/home'}>
-              <img src="" alt="logo" />
+              {/* <img src="" alt="logo" /> */}
+              supngin
             </Link>
             <i
               // className={collapsed ? styles.collapseOpen : styles.collapseClose}
               onClick={() => {}}
             />
           </div>
-          <Menu
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-            theme="dark"
-            inlineCollapsed={this.state.collapsed}
-          >
-            {this.getNavMenuItems()}
-            {/* <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Icon type="inbox" />
-              <span>Option 3</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="mail" />
-                  <span>Navigation One</span>
-                </span>
-              }
-            >
-              <Menu.Item key="5">Option 5</Menu.Item>
-              <Menu.Item key="6">Option 6</Menu.Item>
-              <Menu.Item key="7">Option 7</Menu.Item>
-              <Menu.Item key="8">Option 8</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="appstore" />
-                  <span>Navigation Two</span>
-                </span>
-              }
-            >
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu>
-            </SubMenu> */}
+          <Menu mode="inline" theme="dark">
+            {this.getNavMenuItems(menu)}
           </Menu>
         </Fragment>
       </Sider>

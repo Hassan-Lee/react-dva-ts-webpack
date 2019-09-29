@@ -6,7 +6,6 @@ import './Layout.less';
 // import { Route, Switch } from 'dva/router';
 
 import Authorized from '@utils/Authorized';
-import { getRoutes } from '@utils/routeUtil';
 import GlobalHeader from '@components/GlobalHeader';
 import SiderMenu from '@components/SiderMenu';
 // import Exception from '@components/Exception';
@@ -31,27 +30,22 @@ class BasicLayout extends React.Component<IAppProps, IAppState> {
   }
 
   public render() {
-    const { routerData, match, location } = this.props;
-    console.log(location);
-    const routes = getRoutes(match.path, routerData);
-    console.log(routes);
+    const { childRoutes, basicMenu, location } = this.props;
     return (
       <ConfigProvider locale={this.state.locale}>
         <Layout>
-          <SiderMenu />
+          <SiderMenu
+            childRoutes={childRoutes}
+            menu={basicMenu}
+            location={location}
+          />
           <Layout>
             <GlobalHeader />
             <ErrorBoundary>
               <Content className={styles.container} id="appContent">
                 <Switch>
-                  {getRoutes(match.path, routerData).map(item => (
-                    <AuthorizedTab
-                      key={item.key}
-                      path={item.path}
-                      component={item.component}
-                      exact
-                      redirectPath="/exception/403"
-                    />
+                  {_.map(childRoutes, route => (
+                    <AuthorizedTab key={route.path} {...route} />
                   ))}
                   <Route component={NoMatch} />
                 </Switch>
@@ -65,5 +59,5 @@ class BasicLayout extends React.Component<IAppProps, IAppState> {
 }
 
 export default connect(({ global }) => ({
-  global
+  basicMenu: global.basicMenu
 }))(BasicLayout);

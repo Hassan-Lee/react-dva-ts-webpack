@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
+import _ from 'lodash';
 
 let routerDataCache;
 
@@ -13,24 +14,24 @@ const modelNotExisted = (app, model) =>
 const dynamicWrapper = (app, models, component) => {
   // () => require('module')
   // transformed by babel-plugin-dynamic-import-node-sync
-  if (component.toString().indexOf('.then(') < 0) {
-    models.forEach(model => {
-      if (modelNotExisted(app, model)) {
-        // eslint-disable-next-line
-        app.model(require(`../models/${model}`).default);
-      }
-    });
-    return props => {
-      if (!routerDataCache) {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        routerDataCache = getRouterData(app);
-      }
-      return createElement(component().default, {
-        ...props,
-        routerData: routerDataCache
-      });
-    };
-  }
+  // if (component.toString().indexOf('.then(') < 0) {
+  //   models.forEach(model => {
+  //     if (modelNotExisted(app, model)) {
+  //       // eslint-disable-next-line
+  //       app.model(require(`../models/${model}`).default);
+  //     }
+  //   });
+  //   return props => {
+  //     if (!routerDataCache) {
+  //       // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  //       routerDataCache = getRouterData(app);
+  //     }
+  //     return createElement(component().default, {
+  //       ...props,
+  //       routerData: routerDataCache
+  //     });
+  //   };
+  // }
   return dynamic({
     app,
     models: () =>
@@ -47,39 +48,87 @@ const dynamicWrapper = (app, models, component) => {
         const Component = raw.default || raw;
         return props =>
           createElement(Component, {
-            ...props,
-            routerData: routerDataCache
+            ...props
           });
       });
     }
   });
 };
 
-export const getRouterData = app => {
-  const routerConfig = {
-    '/': {
-      component: dynamicWrapper(app, ['global'], () =>
-        import('../layouts/BasicLayout')
-      )
-    },
-    '/home': {
-      component: dynamicWrapper(app, ['home'], () =>
-        import('../pages/HomePage/Home.tsx')
-      )
-    },
-    '/design': {
-      component: dynamicWrapper(app, [], () =>
-        import('../layouts/DesignLayout')
-      )
-    }
-  };
-  const routerData = {};
-  Object.keys(routerConfig).forEach(item => {
-    routerData[item] = {
-      ...routerConfig[item],
-      name: routerConfig[item].name,
-      authority: routerConfig[item].authority
+// const keyMap = {
+//   factory: '../layouts/BasicLayout',
+//   relationship: '',
+//   instance: '',
+//   data: '',
+//   dvaTask: '',
+//   operationsCenter: ''
+// };
+
+export const basicMenu = [
+  {
+    path: '/factory',
+    name: '工厂数据化',
+    children: [
+      {
+        path: '/relationship',
+        name: '关系图谱'
+      },
+      {
+        path: '/instance',
+        name: '对象实例'
+      }
+    ]
+  },
+  {
+    path: '/data',
+    name: '数据加工',
+    children: [
+      {
+        path: '/devTask',
+        name: '开发任务'
+      },
+      {
+        path: '/operationsCenter',
+        name: '运维中心'
+      }
+    ]
+  }
+];
+
+const routerConfig = [
+  {
+    path: '/',
+    models: ['global'],
+    component: () => import('../layouts/BasicLayout'),
+    childRoutes: [
+      {
+        path: '/home/:id?',
+        models: ['home'],
+        component: () => import('../pages/HomePage/Home')
+      }
+    ]
+  },
+  {
+    path: '/design',
+    models: ['global'],
+    component: () => import('../layouts/DesignLayout')
+  }
+];
+
+const formatterRouteData = (app, routes) => {
+  return _.map(routes, route => {
+    const { path, models, component, childRoutes = [] } = route;
+    const dynamicRoute = {
+      path,
+      component: dynamicWrapper(app, models, component),
+      childRoutes: childRoutes.length
+        ? formatterRouteData(app, childRoutes)
+        : []
     };
+    return dynamicRoute;
   });
-  return routerData;
+};
+
+export const getRouterData = app => {
+  return formatterRouteData(app, routerConfig);
 };

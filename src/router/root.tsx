@@ -19,26 +19,17 @@ const NoMatch = () => <div>404</div>;
 function RouterConfig(params) {
   const { history, app } = params;
   const routerData = getRouterData(app);
-  const DesignLayout = routerData['/design'].component;
-  const BasicLayout = routerData['/'].component;
+  // const DesignLayout = routerData['/design'].component;
+  // const BasicLayout = routerData['/'].component;
   return (
     <HashRouter history={history}>
       <ConfigProvider locale={zhCN}>
         <ConnectedRouter history={history}>
           <ErrorBoundary>
             <Switch>
-              <AuthorizedRoute
-                path="/design"
-                render={props => <DesignLayout {...props} />}
-                authority={['user', 'admin']}
-                redirectPath="/user/login"
-              />
-              <AuthorizedRoute
-                path="/"
-                render={props => <BasicLayout {...props} />}
-                authority={['user', 'admin']}
-                redirectPath="/user/login"
-              />
+              {_.map(routerData, route => (
+                <AuthorizedRoute key={route.path} {...route} />
+              ))}
               <Route component={NoMatch} />
             </Switch>
           </ErrorBoundary>
