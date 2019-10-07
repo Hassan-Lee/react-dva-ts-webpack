@@ -8,7 +8,7 @@ interface C {
 }
 const modelNotExisted = (app: any, model: string) =>
   // eslint-disable-next-line
-  !app._models.some(({ namespace }:C) => {
+  !app._models.some(({ namespace }: C) => {
     return namespace === model.substring(model.lastIndexOf('/') + 1);
   });
 
