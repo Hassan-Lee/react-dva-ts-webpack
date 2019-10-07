@@ -19,8 +19,6 @@ const NoMatch = () => <div>404</div>;
 function RouterConfig(params) {
   const { history, app } = params;
   const routerData = getRouterData(app);
-  // const DesignLayout = routerData['/design'].component;
-  // const BasicLayout = routerData['/'].component;
   return (
     <HashRouter history={history}>
       <ConfigProvider locale={zhCN}>

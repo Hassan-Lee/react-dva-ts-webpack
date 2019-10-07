@@ -4,7 +4,6 @@ import AuthorizedTab from './AuthorizedTab';
 import Secured from './Secured';
 import check from './CheckPermissions';
 
-/* eslint-disable import/no-mutable-exports */
 let CURRENT = 'NULL';
 
 Authorized.Secured = Secured;
@@ -16,7 +15,7 @@ Authorized.check = check;
  * use  authority or getAuthority
  * @param {string|()=>String} currentAuthority
  */
-const renderAuthorize = currentAuthority => {
+const renderAuthorize = (currentAuthority: any) => {
   if (currentAuthority) {
     if (currentAuthority.constructor.name === 'Function') {
       CURRENT = currentAuthority();

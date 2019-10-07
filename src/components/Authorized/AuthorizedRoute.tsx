@@ -1,8 +1,16 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import Authorized from './Authorized';
+import { Route, Redirect } from 'react-router-dom';
 
-class AuthorizedRoute extends React.Component {
+interface AuthorizedProps {
+  component: any;
+  render: Function;
+  authority?: any;
+  redirectPath?: string;
+  childRoutes?: [];
+}
+
+class AuthorizedRoute extends React.Component<AuthorizedProps> {
   public render() {
     const {
       component: Component,
@@ -18,7 +26,10 @@ class AuthorizedRoute extends React.Component {
         noMatch={
           <Route
             {...rest}
-            render={() => <Redirect to={{ pathname: redirectPath }} />}
+            render={() => {
+              console.log('auth2');
+              return <Redirect to={{ pathname: redirectPath }} />;
+            }}
           />
         }
       >

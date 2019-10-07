@@ -2,16 +2,18 @@ import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import _ from 'lodash';
 
-let routerDataCache;
-
-const modelNotExisted = (app, model) =>
+let routerDataCache: any;
+interface C {
+  namespace: string;
+}
+const modelNotExisted = (app: any, model: string) =>
   // eslint-disable-next-line
-  !app._models.some(({ namespace }) => {
+  !app._models.some(({ namespace }:C) => {
     return namespace === model.substring(model.lastIndexOf('/') + 1);
   });
 
 // wrapper of dynamic  ..
-const dynamicWrapper = (app, models, component) => {
+const dynamicWrapper = (app: any, models: [], component: any) => {
   // () => require('module')
   // transformed by babel-plugin-dynamic-import-node-sync
   // if (component.toString().indexOf('.then(') < 0) {
@@ -44,9 +46,9 @@ const dynamicWrapper = (app, models, component) => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         routerDataCache = getRouterData(app);
       }
-      return component().then(raw => {
+      return component().then((raw: any) => {
         const Component = raw.default || raw;
-        return props =>
+        return (props: any) =>
           createElement(Component, {
             ...props
           });
@@ -115,7 +117,7 @@ const routerConfig = [
   }
 ];
 
-const formatterRouteData = (app, routes) => {
+const formatterRouteData = (app: any, routes: any) => {
   return _.map(routes, route => {
     const { path, models, component, childRoutes = [] } = route;
     const dynamicRoute = {
@@ -129,6 +131,6 @@ const formatterRouteData = (app, routes) => {
   });
 };
 
-export const getRouterData = app => {
+export const getRouterData = (app: any) => {
   return formatterRouteData(app, routerConfig);
 };

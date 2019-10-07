@@ -18,9 +18,15 @@ const { Content } = Layout;
 // const redirectData = [];
 // const Home = () => <div>Home</div>;
 const NoMatch = () => <div>404</div>;
-interface IAppProps {}
+interface IAppProps {
+  location: any;
+  childRoutes: [];
+  basicMenu: [];
+}
 
-interface IAppState {}
+interface IAppState {
+  locale: undefined;
+}
 
 class BasicLayout extends React.Component<IAppProps, IAppState> {
   private constructor(props: IAppProps) {

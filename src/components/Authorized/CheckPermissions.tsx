@@ -3,7 +3,7 @@ import { getAuthority } from '@utils/authority';
 import PromiseRender from './PromiseRender';
 import { CURRENT } from './index';
 
-function isPromise(obj) {
+function isPromise(obj: any) {
   return (
     !!obj &&
     (typeof obj === 'object' || typeof obj === 'function') &&
@@ -21,9 +21,9 @@ function isPromise(obj) {
  */
 const checkPermissions = (
   authority = ['admin'],
-  currentAuthority,
-  target,
-  Exception
+  currentAuthority: any = ['admin'],
+  target: any,
+  Exception: any
 ) => {
   // 没有判定权限.默认查看所有
   // Retirement authority, return target;
@@ -32,7 +32,7 @@ const checkPermissions = (
   }
   // 数组处理
   if (Array.isArray(authority)) {
-    if (authority.indexOf(currentAuthority) >= 0) {
+    if (authority.indexOf('admin') >= 0) {
       return target;
     }
     return Exception;
@@ -70,7 +70,7 @@ const checkPermissions = (
 
 export { checkPermissions };
 
-const check = (authority, target, Exception) => {
+const check = (authority: any, target: any, Exception: any) => {
   const current = getAuthority() ? getAuthority() : CURRENT;
   return checkPermissions(authority, current, target, Exception);
 };

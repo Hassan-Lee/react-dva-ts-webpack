@@ -53,7 +53,7 @@ export function clearCookie(name: string) {
  * @param {string} name
  * @returns {string}
  */
-export function queryURL(name: string): string {
+export function queryURL(name: string): string | null {
   const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
   const result = window.location.search.substr(1).match(reg);
   if (result !== null) {
@@ -101,7 +101,7 @@ export function arrayToTree<T>(
   children = 'children'
 ): T[] {
   const data = cloneDeep(array);
-  const result = [];
+  const result: [] = [];
   const hash = {};
   data.forEach((_, index) => {
     hash[data[index][id]] = data[index];
