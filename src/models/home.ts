@@ -17,8 +17,7 @@ export default {
     getMenuSuccess(state, { payload }) {
       return {
         ...state,
-        menu: payload,
-        flatMenu: getFlatMenu(payload)
+        menu: payload
       };
     }
   }

@@ -2,19 +2,19 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import Exception from '../Exception';
 
-class AuthorizedTab extends React.Component {
+interface IAuthTabProps {
+  component: any;
+  render: Function;
+  authority: any;
+}
+
+class AuthorizedTab extends React.Component<IAuthTabProps> {
   private permissionCheck = () => {
     return true;
   };
 
   private render() {
-    const {
-      component: Component,
-      render,
-      authority,
-      redirectPath,
-      ...rest
-    } = this.props;
+    const { component: Component, render, ...rest } = this.props;
     if (this.permissionCheck()) {
       return (
         <Route

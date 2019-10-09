@@ -1,6 +1,5 @@
 import React from 'react';
 import PromiseRender from './PromiseRender';
-import { CURRENT } from './index';
 
 function isPromise(obj: any) {
   return (

@@ -8,7 +8,7 @@ export default {
     basicMenu
   },
   effects: {
-    *getMenu({ payload }, { call, put }) {
+    *getMenu({}, { call }) {
       yield call();
     }
   },

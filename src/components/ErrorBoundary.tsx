@@ -9,7 +9,7 @@ export default class ErrorBoundary extends PureComponent<IErrorProps> {
     hasError: false
   };
 
-  private componentWillReceiveProps() {
+  private UNSAFE_componentWillReceiveProps() {
     this.setState({ hasError: false });
   }
 

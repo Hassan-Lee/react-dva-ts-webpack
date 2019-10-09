@@ -26,10 +26,7 @@ class AuthorizedRoute extends React.Component<AuthorizedProps> {
         noMatch={
           <Route
             {...rest}
-            render={() => {
-              console.log('auth2');
-              return <Redirect to={{ pathname: redirectPath }} />;
-            }}
+            render={() => <Redirect to={{ pathname: redirectPath }} />}
           />
         }
       >

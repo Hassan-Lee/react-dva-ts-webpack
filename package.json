@@ -19,13 +19,12 @@
     "src/**/*.{js,jsx,ts,tsx,less,css}": [
       "prettier --write",
       "eslint --ignore-path .gitignore --fix",
-      "stylelint --ignore-path .gitignore --fix",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged",
+      "pre-commit": "npm run precommit",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
