@@ -6,6 +6,7 @@ interface AuthProps {
   authority?: any;
   noMatch?: any;
 }
+
 class Authorized extends React.Component<AuthProps, {}, any> {
   public render() {
     const { children, authority, noMatch = null } = this.props;

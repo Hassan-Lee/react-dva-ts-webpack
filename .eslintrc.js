@@ -76,6 +76,7 @@ module.exports = {
     'no-duplicate-case': 'error',
     'no-duplicate-case': 'error',
     'no-extra-bind': 'error',
+    'no-undef': 'error',
     'no-extra-boolean-cast': 'error',
     'no-new-object': 'error',
     eqeqeq: ['warn', 'always'],
@@ -98,5 +99,8 @@ module.exports = {
     node: true,
     es6: true,
     mocha: true
+  },
+  globals: {
+    _: true
   }
 };

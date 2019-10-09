@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 
-export interface IAppProps {}
+interface IErrorProps {
+  children?: any;
+}
 
-export default class ErrorBoundary extends PureComponent<IAppProps> {
+export default class ErrorBoundary extends PureComponent<IErrorProps> {
   private state = {
     hasError: false
   };
@@ -14,7 +16,8 @@ export default class ErrorBoundary extends PureComponent<IAppProps> {
   private componentDidCatch() {
     this.setState({ hasError: true });
   }
-  public render() {
+
+  private render() {
     if (this.state.hasError) {
       return <div>出错啦</div>;
     } else {

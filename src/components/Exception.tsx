@@ -1,11 +1,9 @@
 import * as React from 'react';
 
-interface IAppProps {
+interface IExceptionProps {
   text: string | number;
 }
 
-const Exception: React.FunctionComponent<IAppProps> = props => {
+export default function Exception(props: IExceptionProps) {
   return <div>{props.text || 404}</div>;
-};
-
-export default Exception;
+}

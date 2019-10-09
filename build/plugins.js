@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-12 14:58:43
- * @LastEditTime: 2019-09-17 20:18:53
+ * @LastEditTime: 2019-10-09 16:02:09
  * @LastEditors: Please set LastEditors
  */
 const webpack = require('webpack');
@@ -93,6 +93,9 @@ const prodPlugins = [
         handler: 'StaleWhileRevalidate'
       }
     ]
+  }),
+  new webpack.ProvidePlugin({
+    _: 'lodash'
   })
 ];
 

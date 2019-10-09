@@ -1,5 +1,4 @@
 import React from 'react';
-import { getAuthority } from '@utils/authority';
 import PromiseRender from './PromiseRender';
 import { CURRENT } from './index';
 
@@ -71,8 +70,7 @@ const checkPermissions = (
 export { checkPermissions };
 
 const check = (authority: any, target: any, Exception: any) => {
-  const current = getAuthority() ? getAuthority() : CURRENT;
-  return checkPermissions(authority, current, target, Exception);
+  return checkPermissions(authority, 'admin', target, Exception);
 };
 
 export default check;

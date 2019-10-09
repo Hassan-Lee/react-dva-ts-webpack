@@ -6,8 +6,8 @@ import './Layout.less';
 // import { Route, Switch } from 'dva/router';
 
 import Authorized from '@utils/Authorized';
-import GlobalHeader from '@components/GlobalHeader';
-import SiderMenu from '@components/SiderMenu';
+import GlobalHeader from '@components/Global/Header';
+import SiderMenu from '@components/Sider/Menu';
 // import Exception from '@components/Exception';
 import ErrorBoundary from '@components/ErrorBoundary';
 
@@ -40,13 +40,13 @@ class BasicLayout extends React.Component<IAppProps, IAppState> {
     return (
       <ConfigProvider locale={this.state.locale}>
         <Layout>
-          <SiderMenu
-            childRoutes={childRoutes}
-            menu={basicMenu}
-            location={location}
-          />
+          <GlobalHeader />
           <Layout>
-            <GlobalHeader />
+            <SiderMenu
+              childRoutes={childRoutes}
+              menuData={basicMenu}
+              location={location}
+            />
             <ErrorBoundary>
               <Content className={styles.container} id="appContent">
                 <Switch>

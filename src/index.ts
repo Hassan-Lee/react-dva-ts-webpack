@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import 'url-polyfill';
 import dva from 'dva';
-import './index.less';
+import './index.global.less';
 
 import { createHashHistory } from 'history';
 import createLoading from 'dva-loading';

@@ -3,3 +3,8 @@
 /**/*.ts
 /**/*.tsx
 /**/*.js
+*.js
+*.png
+*.eot
+*.ttf
+*.woff

@@ -1,4 +1,4 @@
-import { basicMenu } from '../router/router';
+import { basicMenu } from '../router/menu.config';
 export default {
   namespace: 'global',
 

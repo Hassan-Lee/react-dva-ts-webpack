@@ -5,43 +5,73 @@ const { resolve } = require('./../utils');
 const theme = require('./../../theme');
 const { cacheLoader } = require('./loaders');
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const cssLoader = modules => ({
-    loader: 'css-loader',
-    options: {
-        importLoaders: 1,
-    modules: true,
-    }
-});
-
-const lessLoader = {
-  loader: 'less-loader',
-  options: {
-    javascriptEnabled: true,
-    modifyVars: theme,
-    importLoaders: 1,
-    modules: true,
-  }
-};
-
-const baseLoaders = modules => [
-  config.extractCss ? MiniCssExtractPlugin.loader : 'style-loader',
-  cacheLoader,
-  cssLoader(modules),
-  'postcss-loader'
-];
-
 module.exports = [
   {
+    //CSS处理
     test: /\.css$/,
-    include: [resolve('node_modules')],
-    use: baseLoaders(false)
+    exclude: /node_modules/,
+    use: [
+      "style-loader",
+      {
+        loader: 'css-loader',
+        options: {
+          modules: true
+        }
+      }
+    ]
   },
   {
-    // for ant design
-    test: /\.less$/,
-    // https://github.com/webpack-contrib/thread-loader/issues/10
-    use: [...baseLoaders(false), lessLoader]
+    test: /\.css$/,
+    exclude: /src/,
+    use: [
+      { loader: 'style-loader' },
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 1,
+        }
+      }
+    ]
+  },
+  {
+    test: new RegExp(`^(.*\\.global).*\\.less`),
+    exclude: [/node_modules/],
+    use: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+      {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true,
+          modifyVars: theme,
+          importLoaders: 1,
+          modules: true
+        }
+      }
+    ]
+  },
+  {
+    test: new RegExp(`^(?!.*\\.global).*\\.less`),
+    exclude: [/node_modules/],
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          modules: true,
+        }
+      },
+      'postcss-loader',
+      {
+        loader: 'less-loader',
+        options: {
+          javascriptEnabled: true,
+          modifyVars: theme,
+          importLoaders: 1,
+          modules: true
+        }
+      }
+    ]
   }
 ];
-

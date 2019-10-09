@@ -1,7 +1,9 @@
-<!--
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-12 14:58:43
- * @LastEditTime: 2019-09-12 14:58:43
- * @LastEditors: your name
- -->
+
+# react-typescript-dva-webpack 
+## 基本介绍
+react-typescript-dva-webpack 技术栈框架
+## 开发
+开发环境<br>
+yarn install && npm run dev
+## 部署
+npm build
