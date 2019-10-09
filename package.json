@@ -16,7 +16,12 @@
     "build:prod": "cross-env APP_ENV=prod npm run build"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": ["prettier --write"]
+    "src/**/*.{js,jsx,ts,tsx,json,less,css,md}": [
+      "prettier --write",
+      "eslint --fix",
+      "stylelint --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
