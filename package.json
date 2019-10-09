@@ -16,10 +16,10 @@
     "build:prod": "cross-env APP_ENV=prod npm run build"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,less,css,md}": [
+    "src/**/*.{js,jsx,ts,tsx,less,css}": [
       "prettier --write",
-      "eslint --fix",
-      "stylelint --fix",
+      "eslint --ignore-path .gitignore --fix",
+      "stylelint --ignore-path .gitignore --fix",
       "git add"
     ]
   },
