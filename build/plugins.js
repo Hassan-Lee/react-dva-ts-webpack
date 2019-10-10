@@ -95,7 +95,7 @@ const prodPlugins = [
     ]
   }),
   new webpack.ProvidePlugin({
-    _: 'lodash'
+    _: '@types/lodash'
   })
 ];
 

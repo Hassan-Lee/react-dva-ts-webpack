@@ -11,8 +11,8 @@ module.exports = {
   // open http://localhost:devPort/
   devPort: 8080,
   // output html
-  index: path.resolve(__dirname, `./../dist/${APP_ENV}/index.html`),
-  assetsRoot: path.resolve(__dirname, `./../dist/${APP_ENV}`),
+  index: path.resolve(__dirname, `./../dist/index.html`),
+  assetsRoot: path.resolve(__dirname, `./../dist`),
   assetsPublicPath: IS_DEV ? '/' : `${STATICDOMAIN}/`,
   assetsSubDirectory: 'static',
   // page Pattern for workbox
