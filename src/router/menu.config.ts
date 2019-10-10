@@ -5,7 +5,7 @@ export const basicMenu = [
     shortName: '数据化',
     children: [
       {
-        path: '/relationship',
+        path: '/relation',
         name: '关系图谱'
       },
       {

@@ -19,7 +19,7 @@ app.use(createLoading());
 app.model(require('./models/global').default);
 
 // 4. Router
-app.router(require('./router/root').default);
+app.router(require('./pages/Root').default);
 
 // 5. Start
 app.start('#app');

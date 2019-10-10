@@ -6,6 +6,6 @@ export interface IGlobalHeaderProps {}
 
 export default class GlobalHeader extends React.Component<IGlobalHeaderProps> {
   public render() {
-    return <Header className={styles.header}>header12121</Header>;
+    return <Header className={styles.header}>supngin</Header>;
   }
 }

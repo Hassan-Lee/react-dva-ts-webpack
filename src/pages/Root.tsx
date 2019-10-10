@@ -7,7 +7,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import ErrorBoundary from '@components/ErrorBoundary';
 import Authorized from '@utils/Authorized';
-import { getRouterData } from './router.ts';
+import { getRouterData } from '../router/router.ts';
 
 const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
@@ -16,7 +16,7 @@ dynamic.setDefaultLoadingComponent(() => {
   return <Spin size="large" />;
 });
 const NoMatch = () => <div>404</div>;
-function RouterConfig(params) {
+const Root = (params: object) => {
   const { history, app } = params;
   const routerData = getRouterData(app);
   return (
@@ -35,6 +35,6 @@ function RouterConfig(params) {
       </ConfigProvider>
     </HashRouter>
   );
-}
+};
 
-export default RouterConfig;
+export default Root;

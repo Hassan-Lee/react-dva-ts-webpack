@@ -5,14 +5,9 @@ export default [
     component: () => import('../layouts/BasicLayout'),
     childRoutes: [
       {
-        path: '/home/:id?',
-        models: ['home'],
-        component: () => import('../pages/HomePage/Home')
-      },
-      {
-        path: '/relationship',
+        path: '/relation',
         models: [],
-        component: () => import('../pages/Factory/Relation')
+        component: () => import('../pages/Factory/Relation/Container')
       },
       {
         path: '/instance',
@@ -27,7 +22,7 @@ export default [
       {
         path: '/gather',
         models: [],
-        component: () => import('../pages/Factory/Gather')
+        component: () => import('../pages/Factory/Gather/Container')
       },
       {
         path: '/label-manager',

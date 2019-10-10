@@ -57,7 +57,7 @@ class SiderMenu extends PureComponent<IMenuProps, IMenuState> {
     const { parent } = this.getDefaultCollapsedSubMenus(pathname);
     this.state = {
       openKeys: [parent],
-      collapsed: true
+      collapsed: false
     };
   }
 
